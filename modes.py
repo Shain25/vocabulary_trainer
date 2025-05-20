@@ -92,6 +92,7 @@ def test_mode():
     choose_unit="unit_"+str(choose_unit)
     correct_num=0
     wrong_num=0
+    wrong_words=[]
     qnum=1
     for i in data[choose_unit]:
         print(f"Question number {qnum}")
@@ -102,9 +103,11 @@ def test_mode():
             correct_num+=1
         else:
             wrong_num+=1
+            wrong_words.append(i['word'])
     print("The test is over! here is your score feedback:")
+    print(f"Total questions: {qnum-1}")
     print(f"Correct answers: {correct_num}")
-    print(f"Wrong answers: {wrong_num}")
+    print(f"Wrong answers: {wrong_num}: {', '.join(wrong_words)} ")
     score=int((correct_num/(qnum-1))*100)
     print(f"Your score: {score}")
     if score>=85:
