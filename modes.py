@@ -1,4 +1,6 @@
 from fileops import load_vocab, save_vocab
+import random
+import time
 
 def edit_mode():
         while True:
@@ -46,12 +48,21 @@ def training_mode():
     choose_unit=input("Please choose a unit number: ")
     choose_unit="unit_"+str(choose_unit)
     words=[item["word"] for item in data[choose_unit]]
+    meanings={item["word"]:item["meaning"] for item in data[choose_unit]}
     print("Words in the unit you chose: "+", ".join(words))
     print("Practice full unit or a range? ")
     full_or_range=input("1. Full unit\n2. Range\n")
     if full_or_range=='1':
-        
-    if full_or_range=='2':
+        repeat_count=words*1
+        random.shuffle(repeat_count)
+        for word in repeat_count:
+            print("The word is:\n"+word)
+            time.sleep(3)
+            print("Its meaning is:\n"+meanings[word][::-1])
+            if word != repeat_count[-1]:
+                input("press Enter to proceed")
+
+    #if full_or_range=='2':
 
 def test_mode():
     print("")

@@ -6,7 +6,6 @@ def main_menu():
             edit_mode()
         elif menu=='2':
             training_mode()
-            print('2')
         elif menu=='3':
             test_mode()
         elif menu=='4':
