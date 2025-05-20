@@ -53,7 +53,7 @@ def training_mode():
     print("Practice full unit or a range? ")
     full_or_range=input("1. Full unit\n2. Range\n")
     if full_or_range=='1':
-        repeat_count=words*1
+        repeat_count=words*7
         random.shuffle(repeat_count)
         for word in repeat_count:
             print("The word is:\n"+word)
@@ -62,7 +62,57 @@ def training_mode():
             if word != repeat_count[-1]:
                 input("press Enter to proceed")
 
-    #if full_or_range=='2':
+    if full_or_range=='2':
+        start_word=input("Type the first word in range ").lower()
+        end_word=input("Type the last word in range ").lower()
+        range_words=[]
+        if start_word and end_word in words and words.index(start_word)<words.index(end_word):
+            for i in range(words.index(start_word), words.index(end_word)+1):
+                range_words.append(words[i])
+            repeat_count=range_words*7
+            random.shuffle(repeat_count)
+            print(repeat_count)
+            for word in repeat_count:
+                print("The word is:\n"+word)
+                time.sleep(3)
+                print("Its meaning is:\n"+meanings[word][::-1])
+                if word != repeat_count[-1]:
+                    input("press Enter to proceed")
+        else:
+            print("Error, please type words in a reasonable range!")
+
+
 
 def test_mode():
-    print("")
+    data=load_vocab()
+    print("Test Units:")
+    for unit in data.keys():
+        print(unit)
+    choose_unit=input("Please choose a unit number for your test: ")
+    choose_unit="unit_"+str(choose_unit)
+    correct_num=0
+    wrong_num=0
+    qnum=1
+    for i in data[choose_unit]:
+        print(f"Question number {qnum}")
+        qnum+=1
+        print(i['word'])
+        answer=input("What is the meaning? ")
+        if answer==i['meaning']:
+            correct_num+=1
+        else:
+            wrong_num+=1
+    print("The test is over! here is your score feedback:")
+    print(f"Correct answers: {correct_num}")
+    print(f"Wrong answers: {wrong_num}")
+    score=int((correct_num/(qnum-1))*100)
+    print(f"Your score: {score}")
+    if score>=85:
+        print("Excellent! Great job remembering your vocabulary")
+    if score>=60 and score<85:
+        print("Good work! A bit more practice and you'll master it")
+    if score>=30 and score<60:
+        print("Keep going! You're getting there, but review needed")
+    if score<30:
+        print("Needs improvement. Study the words again and try once more")
+    input("Press ENTER to go back to main menu")
